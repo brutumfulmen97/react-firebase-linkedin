@@ -33,6 +33,17 @@ export const RegisterComponent = () => {
 
     const navigate = useNavigate();
 
+    function togglePassword(e) {
+        let password = document.querySelector(".pw");
+        if (password.type === "password") {
+            password.type = "text";
+            e.target.textContent = "hide";
+        } else {
+            password.type = "password";
+            e.target.textContent = "show";
+        }
+    }
+
     return (
         <div className="register-wrapper">
             <div className="logo">
@@ -55,7 +66,7 @@ export const RegisterComponent = () => {
                         }
                     />
                     <input
-                        className="common-input"
+                        className="common-input pw"
                         placeholder="Password (6 or more characters)"
                         type="password"
                         onChange={(e) =>
@@ -65,6 +76,12 @@ export const RegisterComponent = () => {
                             })
                         }
                     />
+                    <button
+                        className="show-btn"
+                        onClick={(e) => togglePassword(e)}
+                    >
+                        show
+                    </button>
                 </div>
                 <button className="login-btn" onClick={login}>
                     Agree & Join
