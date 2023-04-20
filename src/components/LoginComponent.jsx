@@ -5,6 +5,7 @@ import "../Sass/LoginComponent.scss";
 import { toast } from "react-toastify";
 
 export const LoginComponent = () => {
+    console.log("rendered");
     const [credentials, setCredentials] = useState({});
 
     const login = async () => {
@@ -28,6 +29,17 @@ export const LoginComponent = () => {
     };
 
     const navigate = useNavigate();
+
+    function togglePassword(e) {
+        let password = document.querySelector(".pw");
+        if (password.type === "password") {
+            password.type = "text";
+            e.target.textContent = "hide";
+        } else {
+            password.type = "password";
+            e.target.textContent = "show";
+        }
+    }
 
     return (
         <div className="login-wrapper">
@@ -54,7 +66,7 @@ export const LoginComponent = () => {
                         }
                     />
                     <input
-                        className="common-input"
+                        className="common-input pw"
                         placeholder="Enter your password"
                         type="password"
                         onChange={(e) =>
@@ -64,6 +76,12 @@ export const LoginComponent = () => {
                             })
                         }
                     />
+                    <button
+                        className="show-btn"
+                        onClick={(e) => togglePassword(e)}
+                    >
+                        show
+                    </button>
                 </div>
                 <button className="login-btn" onClick={login}>
                     Sign in
