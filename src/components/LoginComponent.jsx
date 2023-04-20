@@ -11,15 +11,17 @@ export const LoginComponent = () => {
         try {
             let res = await LoginAPI(credentials.email, credentials.password);
             toast.success("Signed in to LinkedIn");
+            navigate("/home");
         } catch (error) {
             toast.error("Please Check your credentials");
         }
     };
 
-    const googleLogin = async () => {
+    const googleLogin = () => {
         try {
-            let res = await GoogleSignInAPI();
+            let res = GoogleSignInAPI();
             toast.success("Signed in to LinkedIn with Google");
+            navigate("/home");
         } catch (err) {
             toast.error("Please Check your credentials");
         }
@@ -35,7 +37,7 @@ export const LoginComponent = () => {
                 </svg>
             </div>
             <div className="form">
-                <h1>Sign in</h1>
+                <h1 className="login-title">Sign in</h1>
                 <p className="login-text">
                     Stay updated on your professional world
                 </p>
