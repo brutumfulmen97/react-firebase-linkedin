@@ -1,0 +1,158 @@
+$primary-color: #0073b1;
+$secondary-color: #213f82;
+$text-color: #212121;
+
+.login-wrapper {
+    background: white;
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    justify-content: center;
+    align-items: center;
+    .form {
+        box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.5);
+        width: 400px;
+        padding: 1rem;;
+        border-radius: 10px;
+    }
+
+    .form > * {
+        width: 100%;
+    }
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    h1 {
+        width: 30%;
+        font-weight: 500;
+        color: $text-color
+    }
+
+    .login-text {
+        font-weight: 400;
+        font-size: 1rem;
+        color: $text-color;
+        margin-bottom: 2rem;
+    }
+
+    .new-acc {
+        font-weight: 400;
+        font-size: 1rem;
+        color: $text-color;
+        margin-bottom: 2rem;
+        text-align: center;
+        
+        span {
+            padding: 0.5rem;
+            border-radius: 30px;
+            color: $primary-color;
+            font-weight: 500;
+            cursor: pointer;
+            &:hover {
+                background: #b8daed;
+                text-decoration: underline;
+            }
+        }
+    }
+
+    .separator {
+        display: flex;
+        align-items: center;
+        text-align: center;
+        color: $text-color;
+        opacity: 0.7;
+        font-size: 1rem;
+        margin: 1rem 0;
+    }
+    
+    .separator::before,
+    .separator::after {
+    content: '';
+    flex: 1;
+    border-bottom: 1px solid #000;
+    opacity: 0.4;
+
+    }
+    
+    .separator:not(:empty)::before {
+    margin-right: .5rem;
+    }
+    
+    .separator:not(:empty)::after {
+    margin-left: .5rem;
+    }      
+}
+
+.login-inputs {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    align-items: center;
+    margin: 1rem 0;
+
+    .common-input {
+        height: 50px;
+        width: 100%;
+        border-radius: 5px;
+        border: none;
+        outline: 1px solid $text-color;
+        padding: 0 1rem;
+        font-size: 1.2rem;
+        font-weight: 300;
+        &:focus {
+            outline: 2px solid $primary-color;
+        }
+    }
+    ::placeholder {
+        color: $text-color;
+    }
+}
+
+.logo {
+    width: 80px;
+    position: absolute;
+    top: 20px;
+    left: 20px;
+
+    svg {
+        fill: $primary-color;
+    }
+}
+
+.login-btn {
+    height: 50px;
+    margin-top: 1rem;
+    cursor: pointer;
+    border: none;
+    background: $primary-color;
+    color: white;
+    border-radius: 25px;
+    font-size: 1rem;
+    font-weight: 400;
+    &:hover {
+        background: $secondary-color;
+    }
+}
+
+.google-btn {
+    height: 50px;
+    cursor: pointer;
+    border: none;
+    background: white;
+    color: $text-color;
+    border-radius: 25px;
+    font-size: 1rem;
+    font-weight: 400;
+    outline: 1px solid $text-color;
+    &:hover {
+        background: rgba(169, 188, 198, 0.3);
+    }
+
+    i {
+        margin-right: 0.5rem;
+    }
+}
