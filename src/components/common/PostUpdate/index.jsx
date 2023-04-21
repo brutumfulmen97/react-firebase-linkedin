@@ -1,13 +1,19 @@
 import React, { useState } from "react";
 import "./index.scss";
 import { Modal, Button } from "antd";
+import { postStatusToFirebase } from "../../../api/FirestoreAPI";
 
 export const PostStatus = () => {
-    const [modal1Open, setModal1Open] = useState(true);
+    const [modal1Open, setModal1Open] = useState(false);
     const [status, setStatus] = useState("");
 
-    const sendStatus = () => {
+    const sendStatus = (status) => {
+        const object = {
+            status: status || null,
+        };
+        postStatusToFirebase(object);
         setModal1Open(false);
+        setStatus("");
     };
 
     return (
@@ -29,7 +35,7 @@ export const PostStatus = () => {
                             className="post-btn"
                             key="submit"
                             type="primary"
-                            onClick={sendStatus}
+                            onClick={() => sendStatus(status)}
                             disabled={status.length === 0}
                         >
                             Post
@@ -42,7 +48,10 @@ export const PostStatus = () => {
                         rows={5}
                         columns={30}
                         placeholder="What do you want to talk about?"
-                        onChange={(e) => setStatus(e.target.value)}
+                        value={status}
+                        onChange={(e) => {
+                            setStatus(e.target.value);
+                        }}
                     ></textarea>
                 </Modal>
             </div>
