@@ -8,8 +8,13 @@ import {
     AiOutlineBell,
 } from "react-icons/ai";
 import { BsBriefcase } from "react-icons/bs";
+import { useNavigate } from "react-router-dom";
 
 export const Topbar = () => {
+    const navigate = useNavigate();
+    const goToRoute = (route) => {
+        navigate(route);
+    };
     return (
         <div className="topbar-main">
             <div className="logo-search">
@@ -23,12 +28,42 @@ export const Topbar = () => {
                 <AiOutlineSearch size={30} />
             </div>
             <div className="topbar-icons">
-                <AiOutlineHome size={30} />
-                <AiOutlineUserSwitch size={30} />
-                <AiOutlineMessage size={30} />
-                <BsBriefcase size={30} />
-                <AiOutlineBell size={30} />
-                <div className="topbar-user">
+                <AiOutlineHome
+                    size={30}
+                    onClick={() => {
+                        goToRoute("/home");
+                    }}
+                />
+                <AiOutlineUserSwitch
+                    size={30}
+                    onClick={() => {
+                        goToRoute("/profile");
+                    }}
+                />
+                <AiOutlineMessage
+                    size={30}
+                    onClick={() => {
+                        goToRoute("/");
+                    }}
+                />
+                <BsBriefcase
+                    size={30}
+                    onClick={() => {
+                        goToRoute("/");
+                    }}
+                />
+                <AiOutlineBell
+                    size={30}
+                    onClick={() => {
+                        goToRoute("/");
+                    }}
+                />
+                <div
+                    className="topbar-user"
+                    onClick={() => {
+                        goToRoute("/");
+                    }}
+                >
                     <i className="fa-regular fa-user"></i>
                 </div>
             </div>

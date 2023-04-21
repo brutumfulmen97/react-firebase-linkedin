@@ -1,0 +1,50 @@
+.post-status-main {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .post-status {
+        width: 80%;
+        height: 120px;
+        background: white;
+        margin-top: 30px;
+        border: 1px solid #a5a5a5;
+        border-radius: 7px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        .open-post-modal {
+            width: 80%;
+            height: 50px;
+            border-radius: 25px;
+            text-align: left;
+            padding-left: 20px;
+            color: #212121;
+            background: white;
+            border: none;
+            outline: 1px solid #212121;
+            cursor: pointer;
+            font-size: 1rem;
+
+            &:hover {
+                background: #f3f2ef;
+            }
+        }
+
+    }
+}
+
+.modal-input {
+    width: 100%;
+    color: #212121;
+    border: none;
+    outline: none;
+    font-size: 1rem;
+    margin-top: 1rem;
+    resize: none;
+}
+
+.post-btn {
+    background: red;
+}
