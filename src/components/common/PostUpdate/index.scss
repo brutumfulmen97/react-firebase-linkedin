@@ -2,6 +2,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    flex-direction: column;
 
     .post-status {
         width: 80%;
@@ -32,6 +33,13 @@
             }
         }
 
+    }
+    .posts-container   {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
     }
 }
 

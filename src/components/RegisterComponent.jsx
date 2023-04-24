@@ -14,6 +14,7 @@ export const RegisterComponent = () => {
                 credentials.password
             );
             toast.success("Account Created");
+            localStorage.setItem("user-email", JSON.stringify(res.user.email));
             navigate("/home");
         } catch (error) {
             toast.error("Cannot Create Account");
@@ -25,6 +26,12 @@ export const RegisterComponent = () => {
         try {
             let res = GoogleSignInAPI();
             toast.success("Signed in to LinkedIn with Google");
+            res.then((data) =>
+                localStorage.setItem(
+                    "user-email",
+                    JSON.stringify(data.user.email)
+                )
+            );
             navigate("/home");
         } catch (err) {
             toast.error("Please Check your credentials");

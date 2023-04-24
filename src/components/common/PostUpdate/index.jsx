@@ -1,20 +1,32 @@
-import React, { useState } from "react";
+import React, { useState, useMemo } from "react";
 import "./index.scss";
+import { getStatus } from "../../../api/FirestoreAPI";
 import { Modal, Button } from "antd";
 import { postStatusToFirebase } from "../../../api/FirestoreAPI";
+import PostsCard from "../PostsCard";
+import { getCurrentTimeStamp } from "../../../helpers/useMoment";
 
 export const PostStatus = () => {
     const [modal1Open, setModal1Open] = useState(false);
     const [status, setStatus] = useState("");
+    const [allStatuses, setAllStatuses] = useState([]);
 
     const sendStatus = (status) => {
         const object = {
             status: status || null,
+            timestamp: getCurrentTimeStamp("LLL"),
+            email: JSON.parse(localStorage.getItem("user-email")),
         };
         postStatusToFirebase(object);
         setModal1Open(false);
         setStatus("");
     };
+
+    useMemo(() => {
+        getStatus(setAllStatuses);
+    }, [allStatuses.length]);
+
+    console.log(allStatuses);
 
     return (
         <div className="post-status-main">
@@ -54,6 +66,11 @@ export const PostStatus = () => {
                         }}
                     ></textarea>
                 </Modal>
+            </div>
+            <div className="posts-container">
+                {allStatuses.map((post) => (
+                    <PostsCard post={post} key={post.id} />
+                ))}
             </div>
         </div>
     );

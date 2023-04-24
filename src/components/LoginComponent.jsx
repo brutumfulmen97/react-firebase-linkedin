@@ -13,6 +13,7 @@ export const LoginComponent = () => {
             let res = await LoginAPI(credentials.email, credentials.password);
             toast.success("Signed in to LinkedIn");
             navigate("/home");
+            localStorage.setItem("user-email", JSON.stringify(res.user.email));
         } catch (error) {
             toast.error("Please Check your credentials");
         }
@@ -22,6 +23,12 @@ export const LoginComponent = () => {
         try {
             let res = GoogleSignInAPI();
             toast.success("Signed in to LinkedIn with Google");
+            res.then((data) =>
+                localStorage.setItem(
+                    "user-email",
+                    JSON.stringify(data.user.email)
+                )
+            );
             navigate("/home");
         } catch (err) {
             toast.error("Please Check your credentials");
