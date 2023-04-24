@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import "./index.scss";
 import {
     AiOutlineHome,
@@ -9,8 +9,10 @@ import {
 } from "react-icons/ai";
 import { BsBriefcase } from "react-icons/bs";
 import { useNavigate } from "react-router-dom";
+import { ProfilePopup } from "../ProfilePopup";
 
 export const Topbar = () => {
+    const [popupOpen, setPopupOpen] = useState(false);
     const navigate = useNavigate();
     const goToRoute = (route) => {
         navigate(route);
@@ -61,11 +63,12 @@ export const Topbar = () => {
                 <div
                     className="topbar-user"
                     onClick={() => {
-                        goToRoute("/");
+                        setPopupOpen(!popupOpen);
                     }}
                 >
                     <i className="fa-regular fa-user"></i>
                 </div>
+                {popupOpen && <ProfilePopup />}
             </div>
         </div>
     );

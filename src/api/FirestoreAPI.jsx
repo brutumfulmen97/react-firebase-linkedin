@@ -2,16 +2,17 @@ import { firestore } from "../firebaseConfig";
 import { addDoc, collection, onSnapshot } from "firebase/firestore";
 import { toast } from "react-toastify";
 
-const dbRef = collection(firestore, "posts");
+const postsRef = collection(firestore, "posts");
+const usersRef = collection(firestore, "users");
 
 function postStatusToFirebase(data) {
-    addDoc(dbRef, data)
+    addDoc(postsRef, data)
         .then((res) => toast.success("Status posted successfully"))
         .catch((err) => toast.error("Error posting status"));
 }
 
 function getStatus(setAllStatuses) {
-    onSnapshot(dbRef, (response) => {
+    onSnapshot(postsRef, (response) => {
         setAllStatuses(
             response.docs.map((post) => {
                 return { ...post.data(), id: post.id };
@@ -20,4 +21,25 @@ function getStatus(setAllStatuses) {
     });
 }
 
-export { postStatusToFirebase, getStatus };
+function postUserData(data) {
+    addDoc(usersRef, data)
+        .then(() => {})
+        .catch((err) => {
+            console.log(err);
+        });
+}
+
+function getCurrentUser(setCurrentUser) {
+    let currentEmail = JSON.parse(localStorage.getItem("user-email"));
+    onSnapshot(usersRef, (response) => {
+        setCurrentUser(
+            response.docs
+                .map((user) => {
+                    return { ...user.data(), userID: user.id };
+                })
+                .filter((user) => user.email === currentEmail)[0]
+        );
+    });
+}
+
+export { postStatusToFirebase, getStatus, postUserData, getCurrentUser };

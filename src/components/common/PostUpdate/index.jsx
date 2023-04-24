@@ -5,8 +5,9 @@ import { Modal, Button } from "antd";
 import { postStatusToFirebase } from "../../../api/FirestoreAPI";
 import PostsCard from "../PostsCard";
 import { getCurrentTimeStamp } from "../../../helpers/useMoment";
+import { getUniqueId } from "../../../helpers/getUniqueId";
 
-export const PostStatus = () => {
+export const PostStatus = ({ currentUser }) => {
     const [modal1Open, setModal1Open] = useState(false);
     const [status, setStatus] = useState("");
     const [allStatuses, setAllStatuses] = useState([]);
@@ -15,7 +16,9 @@ export const PostStatus = () => {
         const object = {
             status: status || null,
             timestamp: getCurrentTimeStamp("LLL"),
-            email: JSON.parse(localStorage.getItem("user-email")),
+            email: currentUser.email,
+            userName: currentUser.name,
+            postID: getUniqueId(),
         };
         postStatusToFirebase(object);
         setModal1Open(false);
@@ -25,8 +28,6 @@ export const PostStatus = () => {
     useMemo(() => {
         getStatus(setAllStatuses);
     }, [allStatuses.length]);
-
-    console.log(allStatuses);
 
     return (
         <div className="post-status-main">

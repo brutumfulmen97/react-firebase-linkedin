@@ -3,17 +3,19 @@ import { RegisterAPI, GoogleSignInAPI } from "../api/AuthAPI";
 import { useNavigate } from "react-router-dom";
 import "../Sass/RegisterComponent.scss";
 import { toast } from "react-toastify";
+import { postUserData } from "../api/FirestoreAPI";
 
 export const RegisterComponent = () => {
     const [credentials, setCredentials] = useState({});
 
-    const login = async () => {
+    const register = async () => {
         try {
             let res = await RegisterAPI(
                 credentials.email,
                 credentials.password
             );
             toast.success("Account Created");
+            postUserData({ name: credentials.name, email: credentials.email });
             localStorage.setItem("user-email", JSON.stringify(res.user.email));
             navigate("/home");
         } catch (error) {
@@ -63,6 +65,17 @@ export const RegisterComponent = () => {
                 <div className="login-inputs">
                     <input
                         className="common-input"
+                        placeholder="Your Name"
+                        type="text"
+                        onChange={(e) =>
+                            setCredentials({
+                                ...credentials,
+                                name: e.target.value,
+                            })
+                        }
+                    />
+                    <input
+                        className="common-input"
                         placeholder="Email"
                         type="email"
                         onChange={(e) =>
@@ -90,7 +103,7 @@ export const RegisterComponent = () => {
                         show
                     </button>
                 </div>
-                <button className="login-btn" onClick={login}>
+                <button className="login-btn" onClick={register}>
                     Agree & Join
                 </button>
                 <div className="separator">or</div>
