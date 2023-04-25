@@ -5,7 +5,7 @@
     flex-direction: column;
 
     .post-status {
-        width: 80%;
+        width: 600px;
         height: 120px;
         background: white;
         margin-top: 30px;
@@ -14,6 +14,7 @@
         display: flex;
         justify-content: center;
         align-items: center;
+        
 
         .open-post-modal {
             width: 80%;
@@ -29,7 +30,7 @@
             font-size: 1rem;
 
             &:hover {
-                background: #f3f2ef;
+                background: #ebebeb;
             }
         }
 
@@ -39,7 +40,7 @@
         flex-direction: column;
         align-items: center;
         justify-content: center;
-        width: 100%;
+        width: 600px;
     }
 }
 

@@ -1,5 +1,6 @@
 import React from "react";
 import { onLogout } from "../../../api/AuthAPI";
+import "./index.scss";
 
 export const ProfilePopup = () => {
     return (

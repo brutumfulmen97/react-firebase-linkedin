@@ -15,9 +15,12 @@ export const RegisterComponent = () => {
                 credentials.password
             );
             toast.success("Account Created");
-            postUserData({ name: credentials.name, email: credentials.email });
-            localStorage.setItem("user-email", JSON.stringify(res.user.email));
+            postUserData({
+                name: credentials.name,
+                email: credentials.email,
+            });
             navigate("/home");
+            localStorage.setItem("user-email", JSON.stringify(res.user.email));
         } catch (error) {
             toast.error("Cannot Create Account");
             console.log(error);

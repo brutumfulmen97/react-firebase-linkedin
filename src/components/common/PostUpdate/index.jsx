@@ -14,10 +14,10 @@ export const PostStatus = ({ currentUser }) => {
 
     const sendStatus = (status) => {
         const object = {
-            status: status || null,
+            status: status,
             timestamp: getCurrentTimeStamp("LLL"),
-            email: currentUser.email,
-            userName: currentUser.name,
+            email: currentUser.email || "",
+            userName: currentUser.name || "",
             postID: getUniqueId(),
         };
         postStatusToFirebase(object);
@@ -27,7 +27,7 @@ export const PostStatus = ({ currentUser }) => {
 
     useMemo(() => {
         getStatus(setAllStatuses);
-    }, [allStatuses.length]);
+    }, []);
 
     return (
         <div className="post-status-main">

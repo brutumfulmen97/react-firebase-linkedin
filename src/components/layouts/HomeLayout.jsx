@@ -5,9 +5,7 @@ import { getCurrentUser } from "../../api/FirestoreAPI";
 
 export const HomeLayout = () => {
     const [currentUser, setCurrentUser] = useState({});
-    useMemo(() => {
-        getCurrentUser(setCurrentUser);
-    }, []);
+    useMemo(() => getCurrentUser(setCurrentUser), []);
     return (
         <>
             <Topbar />

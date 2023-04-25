@@ -30,14 +30,17 @@ function postUserData(data) {
 }
 
 function getCurrentUser(setCurrentUser) {
-    let currentEmail = JSON.parse(localStorage.getItem("user-email"));
     onSnapshot(usersRef, (response) => {
         setCurrentUser(
             response.docs
                 .map((user) => {
                     return { ...user.data(), userID: user.id };
                 })
-                .filter((user) => user.email === currentEmail)[0]
+                .filter(
+                    (user) =>
+                        user.email ===
+                        JSON.parse(localStorage.getItem("user-email"))
+                )[0]
         );
     });
 }

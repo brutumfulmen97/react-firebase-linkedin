@@ -67,8 +67,8 @@ export const Topbar = () => {
                     }}
                 >
                     <i className="fa-regular fa-user"></i>
+                    {popupOpen && <ProfilePopup />}
                 </div>
-                {popupOpen && <ProfilePopup />}
             </div>
         </div>
     );
