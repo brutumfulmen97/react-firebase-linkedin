@@ -1,0 +1,45 @@
+$primary-color: #0073b1;
+$secondary-color: #213f82;
+$text-color: #212121;
+
+.profile-edit-inputs {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    margin-top: 2rem;
+    align-items: center;
+    width: 100%;
+    input {
+        width: 500px;
+        height: 50px;
+        border: none;
+        border-radius: 5px;
+        outline: 1px solid $text-color;
+        padding: 0 1rem;
+        font-size: 1.2rem;
+        font-weight: 300;
+        &:focus {
+            outline: 2px solid $primary-color;
+        }
+    }
+
+    ::placeholder {
+        color: $text-color;
+    }
+}
+
+.save-btn {
+    width: 200px;
+    height: 50px;
+    margin-top: 1rem;
+    cursor: pointer;
+    border: none;
+    background: $primary-color;
+    color: white;
+    border-radius: 25px;
+    font-size: 1rem;
+    font-weight: 400;
+    &:hover {
+        background: $secondary-color;
+    }
+}

@@ -3,6 +3,7 @@ import { LoginAPI, GoogleSignInAPI } from "../api/AuthAPI";
 import { useNavigate } from "react-router-dom";
 import "../Sass/LoginComponent.scss";
 import { toast } from "react-toastify";
+import { postUserData } from "../api/FirestoreAPI";
 
 export const LoginComponent = () => {
     console.log("rendered");
@@ -19,16 +20,20 @@ export const LoginComponent = () => {
         }
     };
 
-    const googleLogin = () => {
+    const googleLogin = async () => {
         try {
-            let res = GoogleSignInAPI();
+            let res = await GoogleSignInAPI();
             toast.success("Signed in to LinkedIn with Google");
-            res.then((data) =>
+            res.then((data) => {
                 localStorage.setItem(
                     "user-email",
                     JSON.stringify(data.user.email)
-                )
-            );
+                );
+                postUserData({
+                    name: data.user.displayName,
+                    email: data.user.email,
+                });
+            });
             navigate("/home");
         } catch (err) {
             toast.error("Please Check your credentials");

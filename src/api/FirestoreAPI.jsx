@@ -1,5 +1,11 @@
 import { firestore } from "../firebaseConfig";
-import { addDoc, collection, onSnapshot } from "firebase/firestore";
+import {
+    addDoc,
+    collection,
+    onSnapshot,
+    doc,
+    updateDoc,
+} from "firebase/firestore";
 import { toast } from "react-toastify";
 
 const postsRef = collection(firestore, "posts");
@@ -45,4 +51,21 @@ function getCurrentUser(setCurrentUser) {
     });
 }
 
-export { postStatusToFirebase, getStatus, postUserData, getCurrentUser };
+function editProfile(id, data) {
+    let userToEdit = doc(usersRef, id);
+    updateDoc(userToEdit, data)
+        .then(() => {
+            toast.success("Profile edited successfully");
+        })
+        .catch((err) => {
+            console.log(err);
+        });
+}
+
+export {
+    postStatusToFirebase,
+    getStatus,
+    postUserData,
+    getCurrentUser,
+    editProfile,
+};

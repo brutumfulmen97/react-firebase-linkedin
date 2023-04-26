@@ -25,7 +25,7 @@ export const RegisterAPI = (email, password) => {
     }
 };
 
-export const GoogleSignInAPI = (email, password) => {
+export const GoogleSignInAPI = () => {
     try {
         let googleProvider = new GoogleAuthProvider();
         return signInWithPopup(auth, googleProvider);

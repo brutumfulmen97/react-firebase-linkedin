@@ -27,16 +27,21 @@ export const RegisterComponent = () => {
         }
     };
 
-    const googleLogin = () => {
+    const googleLogin = async () => {
         try {
-            let res = GoogleSignInAPI();
+            let res = await GoogleSignInAPI();
             toast.success("Signed in to LinkedIn with Google");
-            res.then((data) =>
+            res.then((data) => {
                 localStorage.setItem(
                     "user-email",
                     JSON.stringify(data.user.email)
-                )
-            );
+                );
+                postUserData({
+                    name: data.user.displayName,
+                    email: data.user.email,
+                });
+                console.log(data);
+            });
             navigate("/home");
         } catch (err) {
             toast.error("Please Check your credentials");
