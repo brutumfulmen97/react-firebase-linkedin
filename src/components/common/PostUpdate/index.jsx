@@ -19,6 +19,7 @@ export const PostStatus = ({ currentUser }) => {
             email: currentUser.email || "",
             userName: currentUser.name || "",
             postID: getUniqueId(),
+            userID: currentUser.userID,
         };
         postStatusToFirebase(object);
         setModal1Open(false);
@@ -70,7 +71,7 @@ export const PostStatus = ({ currentUser }) => {
             </div>
             <div className="posts-container">
                 {allStatuses.map((post) => (
-                    <PostsCard post={post} key={post.id} />
+                    <PostsCard post={post} key={post.postID} />
                 ))}
             </div>
         </div>

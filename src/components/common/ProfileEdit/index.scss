@@ -2,22 +2,42 @@ $primary-color: #0073b1;
 $secondary-color: #213f82;
 $text-color: #212121;
 
+h4 {
+    font-weight: 400;
+    color: $text-color;
+    margin-bottom: 1rem;
+}
+
+hr {
+    opacity: 0.8;
+}
+
 .profile-edit-inputs {
     display: flex;
     flex-direction: column;
-    gap: 1.5rem;
+    gap: 0.5rem;
     margin-top: 2rem;
     align-items: center;
     width: 100%;
+    label {
+        margin-right: auto;
+        font-size: 1.1rem;
+        margin-bottom: -5px;
+        font-weight: 300;
+    }
     input {
-        width: 500px;
-        height: 50px;
+        width: 100%;
+        height: 40px;
         border: none;
         border-radius: 5px;
         outline: 1px solid $text-color;
-        padding: 0 1rem;
-        font-size: 1.2rem;
-        font-weight: 300;
+        padding: 0 0.5rem;
+        font-size: 1rem;
+        font-weight: 400;
+        margin-bottom: 15px;
+        &:hover {
+            outline: 2px solid black;
+        }
         &:focus {
             outline: 2px solid $primary-color;
         }
@@ -25,12 +45,15 @@ $text-color: #212121;
 
     ::placeholder {
         color: $text-color;
+        font-weight: 300;
+        font-size: 1rem;
     }
 }
 
 .save-btn {
-    width: 200px;
-    height: 50px;
+    width: 100px;
+    height: 40px;
+    margin-left: auto;
     margin-top: 1rem;
     cursor: pointer;
     border: none;

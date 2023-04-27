@@ -5,6 +5,8 @@ import {
     onSnapshot,
     doc,
     updateDoc,
+    query,
+    where,
 } from "firebase/firestore";
 import { toast } from "react-toastify";
 
@@ -62,10 +64,34 @@ function editProfile(id, data) {
         });
 }
 
+function getSingleUser(setCurrentUser, email) {
+    const singleUserQuery = query(usersRef, where("email", "==", email));
+    onSnapshot(singleUserQuery, (response) => {
+        setCurrentUser(
+            response.docs.map((user) => {
+                return { ...user.data(), id: user.id };
+            })[0]
+        );
+    });
+}
+
+function getSingleStatus(setAllStatuses, id) {
+    const singlePostQuery = query(postsRef, where("userID", "==", id));
+    onSnapshot(singlePostQuery, (response) => {
+        setAllStatuses(
+            response.docs.map((post) => {
+                return { ...post.data(), userID: post.id };
+            })
+        );
+    });
+}
+
 export {
     postStatusToFirebase,
     getStatus,
     postUserData,
     getCurrentUser,
     editProfile,
+    getSingleStatus,
+    getSingleUser,
 };

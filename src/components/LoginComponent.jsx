@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import "../Sass/LoginComponent.scss";
 import { toast } from "react-toastify";
 import { postUserData } from "../api/FirestoreAPI";
+import { getUniqueId } from "../helpers/getUniqueId";
 
 export const LoginComponent = () => {
     console.log("rendered");
@@ -22,14 +23,15 @@ export const LoginComponent = () => {
 
     const googleLogin = async () => {
         try {
-            let res = await GoogleSignInAPI();
+            let res = GoogleSignInAPI();
             toast.success("Signed in to LinkedIn with Google");
-            res.then((data) => {
+            await res.then((data) => {
                 localStorage.setItem(
                     "user-email",
                     JSON.stringify(data.user.email)
                 );
                 postUserData({
+                    userID: getUniqueId(),
                     name: data.user.displayName,
                     email: data.user.email,
                 });

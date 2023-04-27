@@ -1,31 +1,66 @@
 import React, { useState, useMemo } from "react";
-import { getStatus } from "../../../api/FirestoreAPI";
+import { getSingleStatus, getSingleUser } from "../../../api/FirestoreAPI";
 import PostsCard from "../PostsCard";
+import { useLocation } from "react-router-dom";
 import "./index.scss";
 
 export const ProfileCard = ({ currentUser, onEdit }) => {
+    const location = useLocation();
     const [allStatuses, setAllStatuses] = useState([]);
+    const [currentProfile, setCurrentProfile] = useState({});
 
     useMemo(() => {
-        getStatus(setAllStatuses);
+        if (location?.state?.id) {
+            getSingleStatus(setAllStatuses, location?.state?.id);
+        }
+        if (location?.state?.email) {
+            getSingleUser(setCurrentProfile, location?.state?.email);
+        }
     }, []);
+
     return (
         <>
             <div className="profile-card">
                 <div className="edit-btn">
-                    <button onClick={onEdit}>Edit</button>
+                    <i onClick={onEdit} className="fa fa-pencil"></i>
                 </div>
-                <h3>{currentUser.name}</h3>
-                <p>{currentUser.email}</p>
-                <p>{currentUser.headline}</p>
+                <div className="profile-info">
+                    <div className="left-info">
+                        <h3>
+                            {Object.values(currentProfile).length === 0
+                                ? currentUser.name
+                                : currentProfile?.name}
+                        </h3>
+                        <p className="profile-headline">
+                            {Object.values(currentProfile).length === 0
+                                ? currentUser.headline
+                                : currentProfile?.headline}
+                        </p>
+                        <p className="profile-location">
+                            {Object.values(currentProfile).length === 0
+                                ? currentUser.location
+                                : currentProfile?.location}
+                        </p>
+                    </div>
+                    <div className="right-info">
+                        <p className="profile-company">
+                            {Object.values(currentProfile).length === 0
+                                ? currentUser.company
+                                : currentProfile?.company}
+                        </p>
+                        <p className="profile-college">
+                            {Object.values(currentProfile).length === 0
+                                ? currentUser.college
+                                : currentProfile?.college}
+                        </p>
+                    </div>
+                </div>
             </div>
 
-            <div className="posts-container">
-                {allStatuses
-                    .filter((item) => item.email === currentUser.email)
-                    .map((post) => (
-                        <PostsCard post={post} key={post.id} />
-                    ))}
+            <div className="posts">
+                {allStatuses.map((post) => (
+                    <PostsCard post={post} key={post.postID} />
+                ))}
             </div>
         </>
     );

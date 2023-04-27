@@ -1,12 +1,58 @@
+$primary-color: #0073b1;
+$secondary-color: #213f82;
+$text-color: #212121;
+
 .popup-card {
     position: absolute;
-    top: 50px;
+    top: 60px;
     right: 0;
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.6);
-    height: 250px;
-    width: 200px;
+    min-height: 100px;
+    width: 250px;
     border-radius: 10px;
     background: white;
-    padding: 10px;
+    padding: 15px;
     z-index: 99;
+
+    .popup-name {
+        font-weight: 600;
+        text-align: center;
+    }
+
+    .popup-headline {
+        font-size: 1rem;
+        text-align: center;
+        color: #717171;
+    }
+
+    .popup-profile-btn {
+        width: 100%;
+        border: none;
+        outline: 1px solid $primary-color;
+        border-radius: 15px;
+        padding: 0.2rem;
+        color: $primary-color;
+        font-weight: 600;
+        font-size: 0.9rem;
+        cursor: pointer;
+        &:hover {
+            background: #a7d8f3;
+            outline: 2px solid $secondary-color;
+        }
+    }
+
+    hr {
+        margin-top: 0.5rem;
+    }
+
+    .signout-btn {
+        margin-top: 0.5rem;
+        cursor: pointer;
+        font-size: 1rem;
+        color: #717171;
+
+        &:hover {
+            text-decoration: underline;
+        }
+    }
 }
