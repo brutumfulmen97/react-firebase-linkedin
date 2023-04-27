@@ -35,14 +35,15 @@ export const ProfilePopup = () => {
             <p className="popup-headline">{currentUser.headline}</p>
             <button
                 className="popup-profile-btn"
-                onClick={() =>
+                onClick={() => {
                     navigate("/profile", {
                         state: {
                             id: currentUser.userID,
                             email: currentUser.email,
                         },
-                    })
-                }
+                    });
+                    location.reload();
+                }}
             >
                 View profile
             </button>

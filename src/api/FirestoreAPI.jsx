@@ -64,10 +64,10 @@ function editProfile(id, data) {
         });
 }
 
-function getSingleUser(setCurrentUser, email) {
+function getSingleUser(setCurrentProfile, email) {
     const singleUserQuery = query(usersRef, where("email", "==", email));
     onSnapshot(singleUserQuery, (response) => {
-        setCurrentUser(
+        setCurrentProfile(
             response.docs.map((user) => {
                 return { ...user.data(), id: user.id };
             })[0]

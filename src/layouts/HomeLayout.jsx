@@ -8,7 +8,7 @@ export const HomeLayout = () => {
     useMemo(() => getCurrentUser(setCurrentUser), []);
     return (
         <>
-            <Topbar currentUser={currentUser} />
+            <Topbar />
             <Home currentUser={currentUser} />
         </>
     );
