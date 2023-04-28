@@ -1,0 +1,12 @@
+.like-container {
+    margin-top: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    
+    .like-text {
+        font-weight: 600;
+        font-size: 1rem;
+    }
+}

@@ -7,11 +7,14 @@ import {
     updateDoc,
     query,
     where,
+    setDoc,
+    deleteDoc,
 } from "firebase/firestore";
 import { toast } from "react-toastify";
 
 const postsRef = collection(firestore, "posts");
 const usersRef = collection(firestore, "users");
+const likesRef = collection(firestore, "likes");
 
 function postStatusToFirebase(data) {
     addDoc(postsRef, data)
@@ -86,6 +89,35 @@ function getSingleStatus(setAllStatuses, id) {
     });
 }
 
+function likePost(userID, postID, isLiked) {
+    try {
+        let docToLike = doc(likesRef, `${userID}_${postID}`);
+        if (isLiked) {
+            deleteDoc(docToLike);
+        } else {
+            setDoc(docToLike, { userID, postID });
+        }
+    } catch (err) {
+        console.log(err);
+    }
+}
+
+const getLikesByUser = (userID, postID, setLikeCount, setIsLiked) => {
+    try {
+        let likeQuery = query(likesRef, where("postID", "==", postID));
+        onSnapshot(likeQuery, (response) => {
+            let likes = response.docs.map((like) => like.data());
+            let likesCount = likes.length;
+            const isLiked = likes.some((like) => like.userID === userID);
+
+            setLikeCount(likesCount);
+            setIsLiked(isLiked);
+        });
+    } catch (err) {
+        console.log(err);
+    }
+};
+
 export {
     postStatusToFirebase,
     getStatus,
@@ -94,4 +126,6 @@ export {
     editProfile,
     getSingleStatus,
     getSingleUser,
+    likePost,
+    getLikesByUser,
 };

@@ -43,7 +43,6 @@ export const RegisterComponent = () => {
                     name: data.user.displayName,
                     email: data.user.email,
                 });
-                console.log(data);
             });
             navigate("/home");
         } catch (err) {

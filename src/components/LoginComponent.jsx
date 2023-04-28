@@ -30,11 +30,6 @@ export const LoginComponent = () => {
                     "user-email",
                     JSON.stringify(data.user.email)
                 );
-                postUserData({
-                    userID: getUniqueId(),
-                    name: data.user.displayName,
-                    email: data.user.email,
-                });
             });
             navigate("/home");
         } catch (err) {
