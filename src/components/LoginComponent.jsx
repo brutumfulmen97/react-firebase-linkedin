@@ -7,7 +7,6 @@ import { postUserData } from "../api/FirestoreAPI";
 import { getUniqueId } from "../helpers/getUniqueId";
 
 export const LoginComponent = () => {
-    console.log("rendered");
     const [credentials, setCredentials] = useState({});
 
     const login = async () => {

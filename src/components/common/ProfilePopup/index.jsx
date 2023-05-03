@@ -36,15 +36,11 @@ export const ProfilePopup = () => {
             <button
                 className="popup-profile-btn"
                 onClick={() => {
-                    if (location.pathname == "/profile") {
-                        location.reload();
-                    }
                     navigate("/profile", {
                         state: {
                             id: currentUser.userID,
                             email: currentUser.email,
                         },
-                        replace: true,
                     });
                 }}
             >

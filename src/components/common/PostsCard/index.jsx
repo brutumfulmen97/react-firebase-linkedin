@@ -27,7 +27,11 @@ const PostsCard = ({ post, id }) => {
             <p>{post.timestamp || "no timestamp"}</p>
             {/* <p>{post.email}</p> */}
             <p>{post.status}</p>
-            <LikeButton userID={currentUser.userID} postID={post.postID} />
+            <LikeButton
+                userID={currentUser.userID}
+                postID={post.postID}
+                currentUser={currentUser}
+            />
         </div>
     );
 };

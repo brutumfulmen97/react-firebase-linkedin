@@ -1,12 +1,115 @@
+$primary-color: #0073b1;
+$secondary-color: #213f82;
+$text-color: #212121;
+
+.like-comment {
+    width: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.2rem;
+}
+
 .like-container {
-    margin-top: 1rem;
+    margin-top: 0.2rem;
+    width: 100%;
+    height: 3rem;
     display: flex;
     align-items: center;
     justify-content: center;
     cursor: pointer;
+    border-radius: 5px;
+
+    &:hover {
+        background: #e4e4e4;
+    }
     
     .like-text {
         font-weight: 600;
         font-size: 1rem;
+    color: $text-color;
+    }
+}
+
+.line {
+    width: 100%;
+}
+
+.like-comment-count {
+    margin-top: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    
+    .count-text {
+        color: #909090;
+        font-size: 1rem;
+    }
+}
+
+.comment-container {
+    margin-top: 1rem;
+    width: 100%;
+    input {
+        width: 100%;
+        height: 45px;
+        border: none;
+        outline: #909090 1px solid;
+        border-radius: 20px;
+        padding: 10px;
+        font-size: 1rem;
+        &:focus {
+            outline: 2px solid #555555;
+        }
+    }
+
+    button {
+        width: 60px;
+        margin-top: 1rem;
+        border: none;
+        background: #2d4c8f;
+        height: 30px;
+        color: white;
+        font-weight: 500;
+        font-size: 1rem;
+        border-radius: 15px;
+        cursor: pointer;
+        &:hover {
+            background: #122b62;
+        }
+    }
+}
+
+.comments {
+    margin-top: 1rem;
+    width: 100%;
+
+    .comment {
+        width: 100%;
+        background: #e4e4e4;
+        padding: 10px;
+        border-radius: 5px;
+        margin-top: 0.5rem;
+        position: relative;
+
+        .comment-name {
+            font-size: 1.2rem;
+            font-weight: 600;
+        }
+
+        .comment-text {
+            font-size: 1.1rem;
+            font-weight: 400;
+            margin-top: 1rem;
+        }
+
+        .comment-timestamp {
+            position: absolute;
+            right: 5px;
+            top: 5px;
+            font-size: 0.8rem;
+            color: $text-color;
+        }
     }
 }

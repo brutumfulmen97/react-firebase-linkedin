@@ -16,7 +16,7 @@ export const ProfileCard = ({ currentUser, onEdit }) => {
         if (location?.state?.email) {
             getSingleUser(setCurrentProfile, location?.state?.email);
         }
-    }, []);
+    }, [location?.state?.id]);
 
     return (
         <>
