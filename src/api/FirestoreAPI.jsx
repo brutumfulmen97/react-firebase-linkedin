@@ -119,8 +119,8 @@ const getLikesByUser = (userID, postID, setLikeCount, setIsLiked) => {
     }
 };
 
-const postComment = (postID, comment, timestamp, name) => {
-    addDoc(commentsRef, { postID, comment, timestamp, name })
+const postComment = (postID, comment, timestamp, name, email, userID) => {
+    addDoc(commentsRef, { postID, comment, timestamp, name, email, userID })
         .then(() => {})
         .catch((err) => {
             console.log(err);
@@ -137,7 +137,6 @@ const getComments = (postID, setComments) => {
                     ...comment.data(),
                 };
             });
-            console.log(comments);
             setComments(comments);
         });
     } catch (err) {

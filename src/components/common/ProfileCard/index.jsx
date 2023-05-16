@@ -1,13 +1,26 @@
-import React, { useState, useMemo } from "react";
-import { getSingleStatus, getSingleUser } from "../../../api/FirestoreAPI";
+import React, { useState, useMemo, useEffect } from "react";
+import {
+    getSingleStatus,
+    getSingleUser,
+    editProfile,
+} from "../../../api/FirestoreAPI";
 import PostsCard from "../PostsCard";
 import { useLocation } from "react-router-dom";
+import { FileUploadModal } from "../fileUploadModal";
 import "./index.scss";
 
 export const ProfileCard = ({ currentUser, onEdit }) => {
     const location = useLocation();
     const [allStatuses, setAllStatuses] = useState([]);
     const [currentProfile, setCurrentProfile] = useState({});
+    const [image, setImage] = useState({});
+    const [imageUrl, setImageUrl] = useState("");
+    const [modalOpen, setModalOpen] = useState(false);
+
+    const getImage = (e) => {
+        setImage(e.target.files[0]);
+        console.log(imageUrl);
+    };
 
     useMemo(() => {
         if (location?.state?.id) {
@@ -18,9 +31,41 @@ export const ProfileCard = ({ currentUser, onEdit }) => {
         }
     }, [location?.state?.id]);
 
+    useEffect(() => {
+        if (imageUrl) {
+            editProfile(currentUser.userID, {
+                ...currentUser,
+                imageUrl,
+            });
+        }
+    }, [imageUrl]);
+
     return (
         <>
             <div className="profile-card">
+                <FileUploadModal
+                    modalOpen={modalOpen}
+                    setModalOpen={setModalOpen}
+                    image={image}
+                    setImageUrl={setImageUrl}
+                    getImage={getImage}
+                    setImage={setImage}
+                />
+                <img
+                    className="profile-image"
+                    onClick={() => setModalOpen(true)}
+                    src={
+                        Object.values(currentProfile).length === 0
+                            ? currentUser.imageUrl == undefined
+                                ? "https://www.w3schools.com/howto/img_avatar.png"
+                                : currentUser.imageUrl
+                            : currentProfile?.imageUrl == undefined
+                            ? "https://www.w3schools.com/howto/img_avatar.png"
+                            : currentProfile?.imageUrl
+                    }
+                    alt="profile picture"
+                />
+                <div className="cover"></div>
                 <div className="edit-btn">
                     <i onClick={onEdit} className="fa fa-pencil"></i>
                 </div>

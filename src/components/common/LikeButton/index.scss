@@ -96,6 +96,12 @@ $text-color: #212121;
         .comment-name {
             font-size: 1.2rem;
             font-weight: 600;
+            cursor: pointer;
+            
+            &:hover {
+                text-decoration: underline;
+                color: #0073b1;
+            }   
         }
 
         .comment-text {

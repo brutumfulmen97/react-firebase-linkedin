@@ -7,6 +7,7 @@ import {
     postComment,
     getComments,
 } from "../../../api/FirestoreAPI";
+import { useNavigate } from "react-router-dom";
 import { getCurrentTimeStamp } from "../../../helpers/useMoment";
 
 export const LikeButton = ({ userID, postID, currentUser }) => {
@@ -15,6 +16,8 @@ export const LikeButton = ({ userID, postID, currentUser }) => {
     const [showComment, setShowComment] = useState(false);
     const [comment, setComment] = useState("");
     const [comments, setComments] = useState([]);
+
+    const navigate = useNavigate();
 
     const getComment = (e) => {
         setComment(e.target.value);
@@ -25,7 +28,9 @@ export const LikeButton = ({ userID, postID, currentUser }) => {
             postID,
             comment,
             getCurrentTimeStamp("LLL"),
-            currentUser.name
+            currentUser.name,
+            currentUser.email,
+            currentUser.userID
         );
         setComment("");
     };
@@ -93,7 +98,17 @@ export const LikeButton = ({ userID, postID, currentUser }) => {
                         {comments.length > 0 &&
                             comments.map((comment) => (
                                 <div className="comment" key={comment.id}>
-                                    <p className="comment-name">
+                                    <p
+                                        className="comment-name"
+                                        onClick={() =>
+                                            navigate("/profile", {
+                                                state: {
+                                                    id: comment.userID,
+                                                    email: comment.email,
+                                                },
+                                            })
+                                        }
+                                    >
                                         {comment.name}
                                     </p>
                                     <p className="comment-text">
