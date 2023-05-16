@@ -11,7 +11,7 @@ import { BsBriefcase } from "react-icons/bs";
 import { useNavigate } from "react-router-dom";
 import { ProfilePopup } from "../ProfilePopup";
 
-export const Topbar = () => {
+export const Topbar = ({ currentUser }) => {
     const [popupOpen, setPopupOpen] = useState(false);
     const navigate = useNavigate();
     const goToRoute = (route) => {
@@ -40,7 +40,12 @@ export const Topbar = () => {
                 <AiOutlineUserSwitch
                     size={30}
                     onClick={() => {
-                        navigate("/");
+                        navigate("/profile", {
+                            state: {
+                                id: currentUser.userID,
+                                email: currentUser.email,
+                            },
+                        });
                     }}
                 />
                 <AiOutlineMessage

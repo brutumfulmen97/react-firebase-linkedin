@@ -21,7 +21,7 @@ export const ProfileEdit = ({ currentUser, onEdit }) => {
     return (
         <div className="profile-card">
             <h4>Edit info</h4>
-            <div className="edit-btn">
+            <div className="close-edit-btn">
                 <i className="fa-solid fa-x" onClick={onEdit}></i>
             </div>
             <hr />

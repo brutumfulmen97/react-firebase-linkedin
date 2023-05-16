@@ -16,6 +16,10 @@
         color: #212121;
     }
 
+    .post-status-text {
+        margin-top: 20px;
+    }
+
     .link-to-profile {
         &:hover {
             text-decoration: underline;
@@ -25,4 +29,23 @@
         cursor: pointer;
         font-size: 1.5rem;
     }
+}
+
+.image-name {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.profile-photo {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-right: 10px;
+}
+
+.timestamp {
+    font-size: 0.8rem !important;
+    margin-top: 1px;
 }

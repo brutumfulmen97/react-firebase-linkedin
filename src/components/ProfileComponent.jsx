@@ -9,7 +9,7 @@ export const ProfileComponent = ({ currentUser }) => {
         setIsEdit((prev) => !prev);
     };
     return (
-        <div>
+        <div style={{ background: "#f3f2ef", paddingBottom: "30px" }}>
             {isEdit ? (
                 <ProfileEdit currentUser={currentUser} onEdit={onEdit} />
             ) : (

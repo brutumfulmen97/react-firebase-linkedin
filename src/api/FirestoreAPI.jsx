@@ -33,6 +33,16 @@ function getStatus(setAllStatuses) {
     });
 }
 
+function getUsers(setAllUsers) {
+    onSnapshot(usersRef, (response) => {
+        setAllUsers(
+            response.docs.map((user) => {
+                return { ...user.data(), id: user.id };
+            })
+        );
+    });
+}
+
 function postUserData(data) {
     addDoc(usersRef, data)
         .then(() => {})
@@ -156,4 +166,5 @@ export {
     getLikesByUser,
     postComment,
     getComments,
+    getUsers,
 };
