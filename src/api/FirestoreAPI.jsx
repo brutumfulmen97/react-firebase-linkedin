@@ -37,7 +37,7 @@ function getUsers(setAllUsers) {
     onSnapshot(usersRef, (response) => {
         setAllUsers(
             response.docs.map((user) => {
-                return { ...user.data(), id: user.id };
+                return { ...user.data() };
             })
         );
     });
@@ -94,7 +94,7 @@ function getSingleStatus(setAllStatuses, id) {
     onSnapshot(singlePostQuery, (response) => {
         setAllStatuses(
             response.docs.map((post) => {
-                return { ...post.data(), userID: post.id };
+                return { ...post.data(), id: post.id };
             })
         );
     });
@@ -154,6 +154,30 @@ const getComments = (postID, setComments) => {
     }
 };
 
+const editPost = (postID, data) => {
+    let postToEdit = doc(postsRef, postID);
+    updateDoc(postToEdit, data)
+        .then(() => {
+            toast.success("Post edited successfully");
+        })
+        .catch((err) => {
+            console.log(err);
+            toast.error("Error editing post");
+        });
+};
+
+const deletePost = (postID) => {
+    let postToDelete = doc(postsRef, postID);
+    deleteDoc(postToDelete)
+        .then(() => {
+            toast.success("Post deleted successfully");
+        })
+        .catch((err) => {
+            console.log(err);
+            toast.error("Error deleting post");
+        });
+};
+
 export {
     postStatusToFirebase,
     getStatus,
@@ -167,4 +191,6 @@ export {
     postComment,
     getComments,
     getUsers,
+    editPost,
+    deletePost,
 };

@@ -2,7 +2,7 @@ import React, { useState, useMemo } from "react";
 import "./index.scss";
 import { getStatus } from "../../../api/FirestoreAPI";
 import { Modal, Button } from "antd";
-import { postStatusToFirebase } from "../../../api/FirestoreAPI";
+import { postStatusToFirebase, editPost } from "../../../api/FirestoreAPI";
 import PostsCard from "../PostsCard";
 import { getCurrentTimeStamp } from "../../../helpers/useMoment";
 import { getUniqueId } from "../../../helpers/getUniqueId";
@@ -11,6 +11,8 @@ export const PostStatus = ({ currentUser }) => {
     const [modal1Open, setModal1Open] = useState(false);
     const [status, setStatus] = useState("");
     const [allStatuses, setAllStatuses] = useState([]);
+    const [isEdit, setIsEdit] = useState(false);
+    const [currentPost, setCurrentPost] = useState({});
 
     const sendStatus = (status) => {
         const object = {
@@ -26,6 +28,24 @@ export const PostStatus = ({ currentUser }) => {
         setStatus("");
     };
 
+    const editStatus = (status) => {
+        const object = {
+            ...currentPost,
+            status: status,
+        };
+        editPost(currentPost.id, object);
+        setIsEdit(false);
+        setModal1Open(false);
+        setStatus("");
+    };
+
+    const getEditData = (post) => {
+        setModal1Open(true);
+        setCurrentPost(post);
+        setStatus(post?.status);
+        setIsEdit(true);
+    };
+
     useMemo(() => {
         getStatus(setAllStatuses);
     }, []);
@@ -33,26 +53,51 @@ export const PostStatus = ({ currentUser }) => {
     return (
         <div className="post-status-main">
             <div className="post-status">
+                <img
+                    className="profile-image"
+                    src={
+                        currentUser.imageUrl ||
+                        "https://www.w3schools.com/howto/img_avatar.png"
+                    }
+                    alt="profile photo"
+                />
                 <button
                     className="open-post-modal"
-                    onClick={() => setModal1Open(true)}
+                    onClick={() => {
+                        setModal1Open(true);
+                        setIsEdit(false);
+                    }}
                 >
                     Start a post
                 </button>
                 <Modal
-                    title="Create a post"
+                    title={isEdit ? "Edit Post" : "Create Post"}
                     style={{ top: 20 }}
                     open={modal1Open}
-                    onCancel={() => setModal1Open(false)}
+                    onOk={() => {
+                        setModal1Open(false);
+                        setStatus("");
+                    }}
+                    onCancel={() => {
+                        setModal1Open(false);
+                        setStatus("");
+                    }}
                     footer={[
                         <Button
                             className="post-btn"
                             key="submit"
                             type="primary"
-                            onClick={() => sendStatus(status)}
+                            style={{ background: "#0a66c2", color: "white" }}
+                            onClick={() => {
+                                if (isEdit) {
+                                    editStatus(status);
+                                } else {
+                                    sendStatus(status);
+                                }
+                            }}
                             disabled={status.length === 0}
                         >
-                            Post
+                            {isEdit ? "Edit" : "Post"}
                         </Button>,
                     ]}
                 >
@@ -71,7 +116,11 @@ export const PostStatus = ({ currentUser }) => {
             </div>
             <div className="posts-container">
                 {allStatuses.map((post) => (
-                    <PostsCard post={post} key={post.postID} />
+                    <PostsCard
+                        post={post}
+                        key={post.postID}
+                        getEditData={getEditData}
+                    />
                 ))}
             </div>
         </div>

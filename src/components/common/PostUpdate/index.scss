@@ -7,7 +7,7 @@
 
     .post-status {
         width: 600px;
-        height: 120px;
+        height: 100px;
         background: white;
         margin-top: 30px;
         border: 1px solid #a5a5a5;
@@ -15,7 +15,7 @@
         display: flex;
         justify-content: center;
         align-items: center;
-        
+        gap: 1rem;
 
         .open-post-modal {
             width: 80%;
@@ -34,9 +34,8 @@
                 background: #ebebeb;
             }
         }
-
     }
-    .posts-container   {
+    .posts-container {
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -57,4 +56,11 @@
 
 .post-btn {
     background: red;
+}
+
+.profile-image {
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    object-fit: cover;
 }
