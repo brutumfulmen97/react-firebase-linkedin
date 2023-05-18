@@ -20,6 +20,7 @@ export const RegisterComponent = () => {
                 userID: getUniqueId(),
                 name: credentials.name,
                 email: credentials.email,
+                imageUrl: "https://www.w3schools.com/howto/img_avatar.png",
             });
             navigate("/home");
             localStorage.setItem("user-email", JSON.stringify(res.user.email));
@@ -42,6 +43,7 @@ export const RegisterComponent = () => {
                     userID: getUniqueId(),
                     name: data.user.displayName,
                     email: data.user.email,
+                    imageUrl: "https://www.w3schools.com/howto/img_avatar.png",
                 });
             });
             navigate("/home");

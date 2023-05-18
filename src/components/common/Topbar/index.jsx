@@ -40,12 +40,7 @@ export const Topbar = ({ currentUser }) => {
                 <AiOutlineUserSwitch
                     size={30}
                     onClick={() => {
-                        navigate("/profile", {
-                            state: {
-                                id: currentUser.userID,
-                                email: currentUser.email,
-                            },
-                        });
+                        navigate("/connections");
                     }}
                 />
                 <AiOutlineMessage

@@ -16,6 +16,7 @@ const postsRef = collection(firestore, "posts");
 const usersRef = collection(firestore, "users");
 const likesRef = collection(firestore, "likes");
 const commentsRef = collection(firestore, "comments");
+const connectionsRef = collection(firestore, "connections");
 
 function postStatusToFirebase(data) {
     addDoc(postsRef, data)
@@ -56,7 +57,7 @@ function getCurrentUser(setCurrentUser) {
         setCurrentUser(
             response.docs
                 .map((user) => {
-                    return { ...user.data(), userID: user.id };
+                    return { ...user.data() };
                 })
                 .filter(
                     (user) =>
@@ -83,7 +84,7 @@ function getSingleUser(setCurrentProfile, email) {
     onSnapshot(singleUserQuery, (response) => {
         setCurrentProfile(
             response.docs.map((user) => {
-                return { ...user.data(), id: user.id };
+                return { ...user.data() };
             })[0]
         );
     });
@@ -94,7 +95,7 @@ function getSingleStatus(setAllStatuses, id) {
     onSnapshot(singlePostQuery, (response) => {
         setAllStatuses(
             response.docs.map((post) => {
-                return { ...post.data(), id: post.id };
+                return { ...post.data() };
             })
         );
     });
@@ -113,6 +114,16 @@ function likePost(userID, postID, isLiked) {
     }
 }
 
+function addConnection(userID, targetID) {
+    try {
+        let docToConnect = doc(connectionsRef, `${userID}_${targetID}`);
+        setDoc(docToConnect, { userID, targetID });
+        toast.success("Connection added successfully");
+    } catch (err) {
+        console.log(err);
+    }
+}
+
 const getLikesByUser = (userID, postID, setLikeCount, setIsLiked) => {
     try {
         let likeQuery = query(likesRef, where("postID", "==", postID));
@@ -123,6 +134,25 @@ const getLikesByUser = (userID, postID, setLikeCount, setIsLiked) => {
 
             setLikeCount(likesCount);
             setIsLiked(isLiked);
+        });
+    } catch (err) {
+        console.log(err);
+    }
+};
+
+const getConnectionsByUser = (userID, targetID, setIsConnected) => {
+    try {
+        let connectionsQuery = query(
+            connectionsRef,
+            where("targetID", "==", targetID)
+        );
+        onSnapshot(connectionsQuery, (response) => {
+            let connections = response.docs.map((item) => item.data());
+            let connectionsCount = connections.length;
+            const isConnected = connections.some(
+                (item) => item.userID === userID
+            );
+            setIsConnected(isConnected);
         });
     } catch (err) {
         console.log(err);
@@ -193,4 +223,6 @@ export {
     getUsers,
     editPost,
     deletePost,
+    addConnection,
+    getConnectionsByUser,
 };

@@ -6,6 +6,7 @@ import { postStatusToFirebase, editPost } from "../../../api/FirestoreAPI";
 import PostsCard from "../PostsCard";
 import { getCurrentTimeStamp } from "../../../helpers/useMoment";
 import { getUniqueId } from "../../../helpers/getUniqueId";
+import { useNavigate } from "react-router-dom";
 
 export const PostStatus = ({ currentUser }) => {
     const [modal1Open, setModal1Open] = useState(false);
@@ -13,6 +14,8 @@ export const PostStatus = ({ currentUser }) => {
     const [allStatuses, setAllStatuses] = useState([]);
     const [isEdit, setIsEdit] = useState(false);
     const [currentPost, setCurrentPost] = useState({});
+
+    const navigate = useNavigate();
 
     const sendStatus = (status) => {
         const object = {
@@ -52,13 +55,47 @@ export const PostStatus = ({ currentUser }) => {
 
     return (
         <div className="post-status-main">
+            <div className="profile-info-section">
+                <div className="cover-gradient"></div>
+                <img
+                    className="profile-image-big"
+                    src={currentUser.imageUrl}
+                    alt="profile photo"
+                    onClick={() => {
+                        navigate("/profile", {
+                            state: {
+                                id: currentUser.userID,
+                                email: currentUser.email,
+                            },
+                        });
+                    }}
+                />
+                <p
+                    onClick={() => {
+                        navigate("/profile", {
+                            state: {
+                                id: currentUser.userID,
+                                email: currentUser.email,
+                            },
+                        });
+                    }}
+                >
+                    {currentUser.name}
+                </p>
+                <p>{currentUser.headline}</p>
+            </div>
             <div className="post-status">
                 <img
                     className="profile-image"
-                    src={
-                        currentUser.imageUrl ||
-                        "https://www.w3schools.com/howto/img_avatar.png"
-                    }
+                    src={currentUser.imageUrl}
+                    onClick={() => {
+                        navigate("/profile", {
+                            state: {
+                                id: currentUser.userID,
+                                email: currentUser.email,
+                            },
+                        });
+                    }}
                     alt="profile photo"
                 />
                 <button

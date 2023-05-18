@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from "react";
+import React, { useState, useMemo, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { LikeButton } from "../LikeButton";
 import { BsPencil, BsTrash } from "react-icons/bs";
@@ -6,11 +6,13 @@ import {
     deletePost,
     getCurrentUser,
     getUsers,
+    getConnectionsByUser,
 } from "../../../api/FirestoreAPI";
 import "./index.scss";
 
 const PostsCard = ({ post, id, getEditData }) => {
     const [currentUser, setCurrentUser] = useState({});
+    const [isConnected, setIsConnected] = useState(false);
     const [users, setUsers] = useState([]);
     useMemo(() => {
         getCurrentUser(setCurrentUser);
@@ -23,14 +25,19 @@ const PostsCard = ({ post, id, getEditData }) => {
 
     const navigate = useNavigate();
 
+    useEffect(() => {
+        getConnectionsByUser(currentUser.userID, post.userID, setIsConnected);
+    }, [currentUser.userID]);
+
+    console.log(currentUser.userID, post.userID);
+
+    if (!isConnected && currentUser.userID !== post.userID) return;
+
     return (
         <div className="posts-card" key={id}>
             <div className="image-name">
                 <img
-                    src={
-                        imageLink ||
-                        "https://www.w3schools.com/howto/img_avatar.png"
-                    }
+                    src={imageLink}
                     alt="profile image"
                     className="profile-photo"
                 />

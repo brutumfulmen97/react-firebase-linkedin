@@ -21,6 +21,7 @@ export const ProfileCard = ({ currentUser, onEdit }) => {
         setImage(e.target.files[0]);
         console.log(imageUrl);
     };
+    console.log(location.state);
 
     useMemo(() => {
         if (location?.state?.id) {
@@ -56,11 +57,7 @@ export const ProfileCard = ({ currentUser, onEdit }) => {
                     onClick={() => setModalOpen(true)}
                     src={
                         Object.values(currentProfile).length === 0
-                            ? currentUser.imageUrl == undefined
-                                ? "https://www.w3schools.com/howto/img_avatar.png"
-                                : currentUser.imageUrl
-                            : currentProfile?.imageUrl == undefined
-                            ? "https://www.w3schools.com/howto/img_avatar.png"
+                            ? currentUser.imageUrl
                             : currentProfile?.imageUrl
                     }
                     alt="profile picture"
