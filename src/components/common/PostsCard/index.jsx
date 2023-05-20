@@ -29,8 +29,6 @@ const PostsCard = ({ post, id, getEditData }) => {
         getConnectionsByUser(currentUser.userID, post.userID, setIsConnected);
     }, [currentUser.userID]);
 
-    console.log(currentUser.userID, post.userID);
-
     if (!isConnected && currentUser.userID !== post.userID) return;
 
     return (

@@ -1,7 +1,7 @@
 .topbar-main {
     width: 100%;
-    padding-inline: 10%;
-    height: 70px;
+    padding-inline: 3rem;
+    height: 50px;
     background: rgba(255, 255, 255, 0.87);
     display: flex;
     align-items: center;
@@ -13,6 +13,7 @@
     width: 40px;
     fill: #0073b1;
     margin-left: 30px;
+    cursor: pointer;
 }
 
 .logo-search {
@@ -25,18 +26,22 @@
     margin-right: 30px;
     display: flex;
     align-items: center;
-        justify-content: space-between;
+    justify-content: space-between;
     gap: 20px;
-    
+
+    .active {
+        border-bottom: 3px solid black;
+    }
+
     svg {
         cursor: pointer;
+        padding: 10px 0;
         fill: #5c5c5c;
         margin-right: 30px;
         &:hover {
             fill: #212121;
         }
     }
-
 }
 
 .topbar-user {

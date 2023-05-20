@@ -10,7 +10,6 @@ export const ProfilePopup = () => {
         getCurrentUser(setCurrentUser);
     }, []);
     const navigate = useNavigate();
-    console.log(currentUser);
 
     return (
         <div className="popup-card">

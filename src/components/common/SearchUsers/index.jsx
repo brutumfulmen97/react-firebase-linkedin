@@ -23,7 +23,6 @@ export const SearchUsers = () => {
         setFilteredUsers(filteredUsersBySearch);
     }, [search]);
 
-    console.log("render");
     return (
         <div className="search-bar">
             <input
@@ -46,7 +45,6 @@ export const SearchUsers = () => {
                             key={user.userID}
                             className="search-result"
                             onClick={() => {
-                                console.log("djes");
                                 navigate("/profile", {
                                     state: {
                                         id: user.userID,

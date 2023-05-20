@@ -11,7 +11,6 @@ export const ConnectedUsers = ({ user, getCurrentUser, currentUser }) => {
     }, [currentUser.userID]);
     if (isConnected) return null;
     if (user.userID === currentUser.userID) return;
-    console.log(user);
     return (
         <div className="connection">
             <div className="cover-gradient"></div>

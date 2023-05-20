@@ -19,9 +19,7 @@ export const ProfileCard = ({ currentUser, onEdit }) => {
 
     const getImage = (e) => {
         setImage(e.target.files[0]);
-        console.log(imageUrl);
     };
-    console.log(location.state);
 
     useMemo(() => {
         if (location?.state?.id) {
