@@ -7,6 +7,7 @@ import { useNavigate } from "react-router-dom";
 export const SearchUsers = () => {
     const [search, setSearch] = useState("");
     const [users, setUsers] = useState([]);
+    const [filteredUsers, setFilteredUsers] = useState([]);
     const [inputIsFocused, setInputIsFocused] = useState(false);
 
     const navigate = useNavigate();
@@ -16,14 +17,10 @@ export const SearchUsers = () => {
     }, []);
 
     useEffect(() => {
-        if (search === "") {
-            setUsers([]);
-            return;
-        }
-        const filteredUsers = users.filter((user) =>
+        const filteredUsersBySearch = users.filter((user) =>
             user.name.toLowerCase().includes(search.toLowerCase())
         );
-        setUsers(filteredUsers);
+        setFilteredUsers(filteredUsersBySearch);
     }, [search]);
 
     console.log("render");
@@ -44,7 +41,7 @@ export const SearchUsers = () => {
             <AiOutlineSearch className="search-icon" size={20} />
             {inputIsFocused && search.length > 0 && (
                 <div className="search-results">
-                    {users.map((user) => (
+                    {filteredUsers.map((user) => (
                         <div
                             key={user.userID}
                             className="search-result"
