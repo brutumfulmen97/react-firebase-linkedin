@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from "react";
+import React, { useState, useMemo, useEffect } from "react";
 import "./index.scss";
 import { getStatus } from "../../../api/FirestoreAPI";
 import { Modal, Button } from "antd";
@@ -7,6 +7,8 @@ import PostsCard from "../PostsCard";
 import { getCurrentTimeStamp } from "../../../helpers/useMoment";
 import { getUniqueId } from "../../../helpers/getUniqueId";
 import { useNavigate } from "react-router-dom";
+import { AiOutlinePicture } from "react-icons/ai";
+import { uploadPostImage } from "../../../api/ImageUpload";
 
 export const PostStatus = ({ currentUser }) => {
     const [modal1Open, setModal1Open] = useState(false);
@@ -14,6 +16,12 @@ export const PostStatus = ({ currentUser }) => {
     const [allStatuses, setAllStatuses] = useState([]);
     const [isEdit, setIsEdit] = useState(false);
     const [currentPost, setCurrentPost] = useState({});
+    const [imageUrl, setImageUrl] = useState("");
+    const [postImage, setPostImage] = useState("");
+
+    const getImage = (e) => {
+        uploadPostImage(e.target.files[0], setImageUrl);
+    };
 
     const navigate = useNavigate();
 
@@ -25,29 +33,49 @@ export const PostStatus = ({ currentUser }) => {
             userName: currentUser.name || "",
             postID: getUniqueId(),
             userID: currentUser.userID,
+            imageUrl: imageUrl,
         };
         postStatusToFirebase(object);
         setModal1Open(false);
         setStatus("");
+        setImageUrl("");
+        setPostImage("");
     };
 
     const editStatus = (status) => {
-        const object = {
-            ...currentPost,
-            status: status,
-        };
+        let object = {};
+        if (imageUrl == "") {
+            object = {
+                ...currentPost,
+                status: status,
+            };
+        } else {
+            object = {
+                ...currentPost,
+                imageUrl: imageUrl,
+                status: status,
+            };
+        }
+        console.log(object);
         editPost(currentPost.id, object);
         setIsEdit(false);
         setModal1Open(false);
         setStatus("");
+        setImageUrl("");
+        setPostImage("");
     };
 
     const getEditData = (post) => {
         setModal1Open(true);
         setCurrentPost(post);
+        setPostImage(post?.imageUrl);
         setStatus(post?.status);
         setIsEdit(true);
     };
+
+    useEffect(() => {
+        setPostImage(imageUrl);
+    }, [imageUrl]);
 
     useMemo(() => {
         getStatus(setAllStatuses);
@@ -116,6 +144,7 @@ export const PostStatus = ({ currentUser }) => {
                         setStatus("");
                     }}
                     onCancel={() => {
+                        setPostImage("");
                         setModal1Open(false);
                         setStatus("");
                     }}
@@ -149,6 +178,21 @@ export const PostStatus = ({ currentUser }) => {
                             setStatus(e.target.value);
                         }}
                     ></textarea>
+                    <img src={postImage} className="post-image-modal" />
+                    <label htmlFor="post-photo">
+                        <AiOutlinePicture
+                            size={45}
+                            color="#212121"
+                            className="picture-icon"
+                        />
+                    </label>
+                    <input
+                        id="post-photo"
+                        hidden
+                        type="file"
+                        onChange={getImage}
+                    />
+                    <hr className="modal-hr" />
                 </Modal>
             </div>
             <div className="posts-container">

@@ -61,9 +61,11 @@ export const ProfileCard = ({ currentUser, onEdit }) => {
                     alt="profile picture"
                 />
                 <div className="cover"></div>
-                <div className="edit-btn">
-                    <i onClick={onEdit} className="fa fa-pencil"></i>
-                </div>
+                {currentUser.userID === location?.state?.id && (
+                    <div className="edit-btn">
+                        <i onClick={onEdit} className="fa fa-pencil"></i>
+                    </div>
+                )}
                 <div className="profile-info">
                     <div className="left-info">
                         <h3>

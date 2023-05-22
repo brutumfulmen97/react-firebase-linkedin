@@ -10,14 +10,19 @@ import { BsBriefcase } from "react-icons/bs";
 import { useNavigate } from "react-router-dom";
 import { ProfilePopup } from "../ProfilePopup";
 import { SearchUsers } from "../SearchUsers";
+import useMediaQuery from "../../../hooks/useMediaQuery";
 
 export const Topbar = ({ currentUser }) => {
     const [popupOpen, setPopupOpen] = useState(false);
-    const [pathname, setPathname] = useState(window.location.pathname);
+    const pathname = window.location.pathname;
     const navigate = useNavigate();
     const goToRoute = (route) => {
         navigate(route);
     };
+
+    const isMobile = useMediaQuery("(max-width: 1024px)");
+
+    console.log(isMobile);
 
     return (
         <div className="topbar-main">
@@ -49,24 +54,28 @@ export const Topbar = ({ currentUser }) => {
                         navigate("/connections");
                     }}
                 />
-                <AiOutlineMessage
-                    size={50}
-                    onClick={() => {
-                        goToRoute("/");
-                    }}
-                />
-                <BsBriefcase
-                    size={50}
-                    onClick={() => {
-                        goToRoute("/");
-                    }}
-                />
-                <AiOutlineBell
-                    size={50}
-                    onClick={() => {
-                        goToRoute("/");
-                    }}
-                />
+                {isMobile ? null : (
+                    <>
+                        <AiOutlineMessage
+                            size={50}
+                            onClick={() => {
+                                goToRoute("/");
+                            }}
+                        />
+                        <BsBriefcase
+                            size={50}
+                            onClick={() => {
+                                goToRoute("/");
+                            }}
+                        />
+                        <AiOutlineBell
+                            size={50}
+                            onClick={() => {
+                                goToRoute("/");
+                            }}
+                        />
+                    </>
+                )}
                 <div
                     className="topbar-user"
                     onClick={() => {

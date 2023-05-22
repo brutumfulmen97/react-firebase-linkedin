@@ -124,3 +124,28 @@
         margin-bottom: 10px;
     }
 }
+
+.picture-icon {
+    padding: 10px;
+    background: #ebebeb;
+    border-radius: 50%;
+    cursor: pointer;
+    &:hover {
+        box-shadow: 0 5px 10px 0 rgba(0, 0, 0, 0.2);
+    }
+}
+
+.modal-hr {
+    margin-top: 0.5rem;
+}
+
+.post-image-upload {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.post-image-modal {
+    width: 100%;
+    margin-bottom: 1rem;
+}

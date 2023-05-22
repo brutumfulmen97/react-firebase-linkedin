@@ -23,11 +23,11 @@ $text-color: #212121;
     &:hover {
         background: #e4e4e4;
     }
-    
+
     .like-text {
         font-weight: 600;
         font-size: 1rem;
-    color: $text-color;
+        color: $text-color;
     }
 }
 
@@ -36,12 +36,12 @@ $text-color: #212121;
 }
 
 .like-comment-count {
-    margin-top: 2rem;
+    margin-top: 20px;
     display: flex;
     align-items: center;
     justify-content: space-between;
     width: 100%;
-    
+
     .count-text {
         color: #909090;
         font-size: 1rem;
@@ -97,11 +97,11 @@ $text-color: #212121;
             font-size: 1.2rem;
             font-weight: 600;
             cursor: pointer;
-            
+
             &:hover {
                 text-decoration: underline;
                 color: #0073b1;
-            }   
+            }
         }
 
         .comment-text {

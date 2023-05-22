@@ -23,3 +23,26 @@ export const uploadImage = (file, setImageUrl) => {
         }
     );
 };
+
+export const uploadPostImage = (file, setImageUrl) => {
+    const postPicsRef = ref(storage, `postImages/${file.name}`);
+    const uploadTask = uploadBytesResumable(postPicsRef, file);
+
+    uploadTask.on(
+        "state_changed",
+        (snapshot) => {
+            const progress =
+                (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+            console.log(`Upload is ${progress}% done`);
+        },
+        (error) => {
+            console.log(error);
+        },
+        () => {
+            getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+                console.log("File available at", downloadURL);
+                setImageUrl(downloadURL);
+            });
+        }
+    );
+};

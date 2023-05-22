@@ -77,6 +77,9 @@ const PostsCard = ({ post, id, getEditData }) => {
                     </>
                 )}
             <p className="post-status-text">{post.status}</p>
+            {post?.imageUrl !== "" && (
+                <img className="post-image" src={post.imageUrl} alt="" />
+            )}
             <LikeButton
                 userID={currentUser.userID}
                 postID={post.postID}

@@ -44,7 +44,7 @@ export const ConnectedUsers = ({ user, getCurrentUser, currentUser }) => {
                 className="connect-btn"
                 onClick={() => getCurrentUser(user.userID)}
             >
-                <i class="fa-solid fa-link"></i> Connect
+                <i className="fa-solid fa-link"></i> Connect
             </button>
         </div>
     );
