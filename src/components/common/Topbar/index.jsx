@@ -22,8 +22,6 @@ export const Topbar = ({ currentUser }) => {
 
     const isMobile = useMediaQuery("(max-width: 1024px)");
 
-    console.log(isMobile);
-
     return (
         <div className="topbar-main">
             <div className="logo-search">

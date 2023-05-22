@@ -56,7 +56,6 @@ export const PostStatus = ({ currentUser }) => {
                 status: status,
             };
         }
-        console.log(object);
         editPost(currentPost.id, object);
         setIsEdit(false);
         setModal1Open(false);
